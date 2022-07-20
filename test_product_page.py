@@ -75,13 +75,13 @@ class TestUserAddToBasketFromProductPage:
     @pytest.fixture(scope="function", autouse=True)
     def setup(self, browser):
         link = "http://selenium1py.pythonanywhere.com/en-gb/accounts/login/"
-        page = LoginPage(browser, link)
-        page.open()
-        page.register_new_user(str(time.time()) + "@gmail.com", "superpassword")
-        page.should_be_authorized_user()
+        register_page = LoginPage(browser, link)
+        register_page.open()
+        register_page.register_new_user(str(time.time()) + "@gmail.com", "superpassword")
+        register_page.should_be_authorized_user()
 
     @pytest.mark.need_review
-    def test_user_can_add_product_to_basket(browser):
+    def test_user_can_add_product_to_basket(self, browser):
         link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0"
         page = ProductPage(browser, link)
         page.open()
@@ -91,7 +91,7 @@ class TestUserAddToBasketFromProductPage:
         page.book_name_check()
         page.price_check()
 
-    def test_user_cant_see_success_message(browser):
+    def test_user_cant_see_success_message(self, browser):
         link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
         page = ProductPage(browser, link)
         page.open()
