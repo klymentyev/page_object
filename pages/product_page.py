@@ -1,7 +1,6 @@
 from selenium.common.exceptions import NoAlertPresentException
 from .base_page import BasePage
 from .locators import ProductPageLocators
-from .login_page import LoginPage
 import math
 
 class ProductPage(BasePage):
@@ -9,6 +8,16 @@ class ProductPage(BasePage):
     def add_to_basket(self):
         button = self.browser.find_element(*ProductPageLocators.BUTTON_ADD_BASKET)
         button.click()
+
+    def book_name_check(self):
+        assert self.browser.find_element(*ProductPageLocators.BOOK_NAME).text == \
+               self.browser.find_element(*ProductPageLocators.BOOK_NAME_MESSAGE).text, \
+               "Added book does not match with selected book"
+
+    def price_check(self):
+        assert self.browser.find_element(*ProductPageLocators.PRICE).text == \
+               self.browser.find_element(*ProductPageLocators.PRICE_MESSAGE).text, \
+               "Added book price does not match with selected book price"
 
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert
