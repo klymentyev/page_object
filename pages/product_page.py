@@ -18,6 +18,13 @@ class ProductPage(BasePage):
         assert self.browser.find_element(*ProductPageLocators.PRICE).text == \
                self.browser.find_element(*ProductPageLocators.PRICE_MESSAGE).text, \
                "Added book price does not match with selected book price"
+    def add_to_basket_success_message_presenteed(self):
+        assert page.is_not_element_present(*ProductPageLocators.BOOK_NAME_MESSAGE), \
+            "Success message is presented, but should not be"
+
+    def add_to_basket_success_message_disappeared(self):
+        assert page.is_disappeared(*ProductPageLocators.BOOK_NAME_MESSAGE), \
+            "Success message is presented, but should not be"
 
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert
